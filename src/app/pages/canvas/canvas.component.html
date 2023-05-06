@@ -1,1 +1,105 @@
-<p>canvas works!</p>
+<div class="container-dframe">
+  <h2 class="frame-title">Diseña tu Bastidor</h2>
+  <div class="section-container-frame">
+    <div class="container-frame">
+      <div class="box-container">
+        <figure class="altarpiece">
+          <div class="passepartout">
+            <figure class="picture filestack-button" (click)="openPicker()">
+              <i class="far fa-file-image fa-7x"></i>
+              <img #filestackImg src="" alt="photo" class="filestackImg" />
+            </figure>
+          </div>
+          <figure class="left-altarpiece"></figure>
+        </figure>
+      </div>
+    </div>
+    <div class="select-elements">
+      <h2 class="frame-title">Tu Imagen</h2>
+      <p class="filestack-text px-2">
+        Haz clic para subir tu imagen. Recuerda que el simulador agrega el valor
+        del print, cuando le des clic a terminar bastidor.
+      </p>
+      <button class="image-button filestack-button2" (click)="openPicker()">
+        <i class="fa-solid fa-file-arrow-up m-1"></i> Imagen
+      </button>
+      <div class="frame-wall">
+        <h2 class="frame-title">Pared</h2>
+        <ul class="wall">
+          <li #wall *ngFor="let wall of walls" [attr.data-wall]="wall.id">
+            <img [src]="wall.img" [alt]="wall.name" [id]="wall.id" />
+          </li>
+        </ul>
+      </div>
+      <div class="size-bastidor">
+        <h2 class="frame-title">Tamaño del Bastidor</h2>
+        <div class="frame-size row px-4">
+          <label class="slider-container frame-height row">
+            <h3>
+              Alto
+              <span class="frameHeight fs-6 mx-1"></span>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="100"
+                step="5"
+                autocomplete="off"
+                class="slider"
+                id="heightRange"
+                #heightRange
+              />
+            </h3>
+          </label>
+          <label class="slider-container frame-width row">
+            <h3>
+              Ancho
+              <span class="frameWidth fs-6 mx-1"></span>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="100"
+                step="5"
+                autocomplete="off"
+                class="slider"
+                id="widthRange"
+                #widthRange
+              />
+            </h3>
+          </label>
+        </div>
+      </div>
+      <div class="frame-options">
+        <h2 class="frame-title">Color</h2>
+        <nav class="retablo-menu mx-3" id="menu">
+          <ul class="bastidor">
+            <li
+              #frameImg
+              class="frame-img"
+              *ngFor="let colorFrame of colorFrames"
+              [attr.data-colorFrame]="colorFrame.id"
+            >
+              <!-- <img [src]="colorFrame.img" [alt]="colorFrame.name"> -->
+              <div
+                [style.background-color]="colorFrame.color"
+                class="color"
+                [attr.data-colorFrame]="colorFrame.id"
+              ></div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Price Button -->
+      <div class="frame-size-button price-button">
+        <button class="button-price" name="price" type="button">
+          Terminar Marco
+        </button>
+        <!-- <span class="total-price animated fadeInDownBig show mx-auto"></span> -->
+        <div class="container h-100 d-flex align-items-center">
+          <span class="total-price animated fadeInDownBig show mx-auto"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

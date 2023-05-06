@@ -4,7 +4,7 @@ import { CanvasComponent } from './pages/canvas/canvas.component';
 import { CardShoppingComponent } from './pages/card-shopping/card-shopping.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'frame', pathMatch: 'full' },
+  { path: '', redirectTo: 'canvas', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule),
@@ -17,7 +17,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'frame',
+    path: 'canvas',
     component: CanvasComponent,
   },
   {

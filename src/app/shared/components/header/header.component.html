@@ -1,1 +1,85 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand navbar-light bg-light shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"
+      ><img
+        src="../assets/logos/logo-para-pagos.png"
+        alt=""
+        width="160"
+        height="42"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ng-template #signIn>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/auth/login']"
+              ><i class="fa-solid fa-user"></i> Sign in</a
+            >
+          </li>
+        </ng-template>
+        <li
+          class="nav-item dropdown"
+          *ngIf="user$ | async as user; else signIn"
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            id="userDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-user"></i> {{ user.displayName }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/user-panel/account']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Mi cuenta</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/user-panel/orders']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Pedidos</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="https://cuadree.com/terminos-y-condiciones/"
+                >Términos y condiciones</a
+              >
+            </li>
+            <li><a class="dropdown-item" (click)="singOut()">Sign Out</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['card-shopping']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="fa-solid fa-cart-shopping fa-xl"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
