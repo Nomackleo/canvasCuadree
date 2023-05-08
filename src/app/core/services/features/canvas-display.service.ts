@@ -1,12 +1,21 @@
 import { Injectable, inject } from '@angular/core';
 import { SliderService } from './slider.service';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CanvasDisplayService {
-  private sliderService = inject(SliderService)
+  private sliderService = inject(SliderService);
+  private widthSubject = new Subject<number>();
+  private heightSubject = new Subject<number>();
+
+  get width$(): Observable<number> {
+    return this.widthSubject.asObservable();
+  }
+  get height$(): Observable<number> {
+    return this.heightSubject.asObservable();
+  }
   constructor() {}
 
   changeSizeFrame() {
@@ -33,9 +42,11 @@ export class CanvasDisplayService {
     $sliderH.style.setProperty('--value', `${sizePH}`);
     $sliderW.style.setProperty('--value', `${sizePW}`);
 
+
+
     frameHeight$
       .pipe(
-        map((value:string) => {
+        map((value: string) => {
           $sliderH.style.setProperty('--value', value);
           let heightRange = value;
           let hFrame = (sizeOfConvertion * Number(heightRange)) / 100;
@@ -43,19 +54,25 @@ export class CanvasDisplayService {
           $frameHeight.textContent = `${heightRange}cm`;
           $altarpieceSize.style.height = `${hFrame}px`;
           $leftFrame.style.height = `${hFrame + 46}px`;
+          let height = Number(heightRange) / 100;
+          this.heightSubject.next(height); //* Emit the new value of height to Subject
+
         })
       )
       .subscribe();
 
     frameWidth$
       .pipe(
-        map((value:string) => {
+        map((value: string) => {
           $sliderW.style.setProperty('--value', value);
           let widthRange = value;
           let wFrame = (sizeOfConvertion * Number(widthRange)) / 100;
           $frameWidth.textContent = '100cm';
           $frameWidth.textContent = `${widthRange}cm`;
           $altarpieceSize.style.width = `${wFrame}px`;
+          let width = Number(widthRange) / 100;
+          this.widthSubject.next(width); // Emit the new value of width to Subject
+
         })
       )
       .subscribe();

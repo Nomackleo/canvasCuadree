@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as filestack from 'filestack-js';
-
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,14 @@ import * as filestack from 'filestack-js';
 export class UploadImageService {
   private apikey: string = environment.filestack.apiKey;
   private client: any;
+  public print: boolean = false;
+
+  private printSubject = new Subject<boolean>();
+  print$ = this.printSubject.asObservable();
+
   constructor() {
     this.client = filestack.init(this.apikey);
+    this.printSubject.next(this.print);
   }
 
   openPicker() {
@@ -45,5 +51,8 @@ export class UploadImageService {
 
     $fileStackButton.addEventListener('click', () => picker.open());
     $fileStackButton2.addEventListener('click', () => picker.open());
+
+    this.print = true;
+    this.printSubject.next(this.print);
   }
 }

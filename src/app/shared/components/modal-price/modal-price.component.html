@@ -1,1 +1,57 @@
-<p>modal-price works!</p>
+<div class="frame-size-button price-button">
+  <button
+    class="button-price active"
+    name="price"
+    type="button"
+    (click)="getDataBill()"
+    data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop"
+  >
+    Terminar Marco
+  </button>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1
+            class="modal-title fs-1"
+            id="staticBackdropLabel"
+            style="color: #7537fc"
+          >
+            Tu Marco Personalizado
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <!-- Bill -->
+        <div class="modal-body">
+          <app-bill [bill$]="dataBill$"></app-bill>
+        </div>
+        <!-- <div class="modal-body fs-2">{{priceFrame}}</div> -->
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="button active"
+            data-bs-dismiss="modal"
+            (click)="addCardShopping()"
+          >
+            Ir al carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
