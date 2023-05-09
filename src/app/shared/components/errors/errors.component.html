@@ -1,1 +1,26 @@
-<p>errors works!</p>
+<div class="message" id="message">
+  <div
+    #alert
+    class="alert fade show"
+    [ngClass]="{
+      'alert-danger': isError,
+      'alert-success': isSuccess,
+      'alert-primary': isMessage
+    }"
+    role="alert"
+  >
+    <h4 class="alert-heading">{{ message.title }}</h4>
+    <p>{{ message.message }}</p>
+    <hr />
+    <p class="mb-0">{{ message.suggestion }}</p>
+    <div class="d-flex justify-content-end">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+

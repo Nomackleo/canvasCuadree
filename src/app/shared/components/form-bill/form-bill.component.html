@@ -1,1 +1,260 @@
-<p>form-bill works!</p>
+<div>
+  <div
+    *ngIf="isMessage || isSuccess || isError"
+    class="animate__animated animate__bounceIn"
+  >
+    <app-errors
+      #erorsComponent
+      *ngIf="isMessage"
+      class="animate__animated animate__bounceIn"
+      [message]="messagesErrors"
+      [isMessage]="isMessage"
+      [isError]="isError"
+      [isSuccess]="isSuccess"
+    ></app-errors>
+  </div>
+  <h4 class="mb-3">Dirección de Facturación</h4>
+  <form [formGroup]="billForm" class="needs-validation" novalidate="">
+    <div class="row g-3">
+      <div class="col-sm-6">
+        <label for="firstName" class="form-label">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          formControlName="name"
+          placeholder="Ingresa tu nombre"
+          value=""
+          required
+        />
+        <span
+          class="form-text text-danger"
+          *ngIf="
+            billForm.controls['name'].invalid &&
+            (billForm.controls['name'].dirty ||
+              billForm.controls['name'].touched)
+          "
+        >
+          Tu nombre es requerido
+        </span>
+      </div>
+      <!-- Lastname -->
+      <div class="col-sm-6">
+        <label for="lastName" class="form-label">Apellido</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          name="lastname"
+          formControlName="lastname"
+          placeholder="Ingresa tu apellido"
+          value=""
+          required
+        />
+        <span
+          class="form-text text-danger"
+          *ngIf="
+            billForm.controls['lastname'].invalid &&
+            (billForm.controls['lastname'].dirty ||
+              billForm.controls['lastname'].touched)
+          "
+        >
+          Tu apellido es requerido
+        </span>
+      </div>
+      <!-- Email -->
+      <div class="col-12">
+        <label for="email" class="form-label"
+          >Email <span class="text-muted">(Opcional)</span></label
+        >
+        <input
+          type="email"
+          class="form-control form-control-lg"
+          id="email"
+          name="email"
+          formControlName="email"
+          placeholder="example@email.com"
+          required
+        />
+        <span
+          class="form-text text-danger"
+          *ngIf="
+            billForm.controls['email'].invalid &&
+            (billForm.controls['email'].dirty ||
+              billForm.controls['email'].touched)
+          "
+        >
+          Introduce un correo electrónico válido
+        </span>
+        <span class="form-text text-danger" *ngIf="fieldInvalid('email')">
+          {{ emailErrorMsg }}
+        </span>
+      </div>
+      <!-- Celular -->
+      <div class="col-12">
+        <label for="celular" class="form-label">Celular</label>
+        <input
+          type="tel"
+          class="form-control form-control-lg"
+          id="celular"
+          name="celular"
+          formControlName="celular"
+          placeholder="Ingresa tu número de contacto"
+          required
+        />
+        <span
+          class="form-text text-danger"
+          *ngIf="
+            billForm.controls['celular'].invalid &&
+            (billForm.controls['celular'].dirty ||
+              billForm.controls['celular'].touched)
+          "
+        >
+          Tu numero de contacto es requerido, para que Cuadree se pueda
+          comunicar contigo y gestionar tu marco personalizado.
+        </span>
+      </div>
+      <!-- Address -->
+      <div class="col-12">
+        <label for="address" class="form-label">Dirección</label>
+        <input
+          type="address"
+          class="form-control form-control-lg"
+          id="address"
+          name="address"
+          formControlName="address"
+          placeholder="Ingresa la dirección de tu pedido"
+          required
+        />
+        <span
+          class="form-text text-danger"
+          *ngIf="
+            billForm.controls['address'].invalid &&
+            (billForm.controls['address'].dirty ||
+              billForm.controls['address'].touched)
+          "
+        >
+          "Ingresa una dirección valida, para poder envíar tu marco
+          personalizado."
+        </span>
+      </div>
+
+      <div class="col-12">
+        <label for="address2" class="form-label"
+          >Dirección 2 <span class="text-muted">(Opcional)</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="address2"
+          name="address2"
+          formControlName="address2"
+          placeholder="Ingresa una dirección alternativa"
+        />
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <h4 class="mb-3">Payment</h4>
+
+    <div class="my-3">
+      <div class="form-check">
+        <input
+          id="credit"
+          name="paymentMethod"
+          type="radio"
+          class="form-check-input"
+          checked=""
+          required=""
+        />
+        <label class="form-check-label" for="credit">Credit card</label>
+      </div>
+      <div class="form-check">
+        <input
+          id="debit"
+          name="paymentMethod"
+          type="radio"
+          class="form-check-input"
+          required=""
+        />
+        <label class="form-check-label" for="debit">Debit card</label>
+      </div>
+      <div class="form-check">
+        <input
+          id="paypal"
+          name="paymentMethod"
+          type="radio"
+          class="form-check-input"
+          required=""
+        />
+        <label class="form-check-label" for="paypal">PayPal</label>
+      </div>
+    </div>
+
+    <div class="row gy-3">
+      <div class="col-md-6">
+        <label for="cc-name" class="form-label">Name on card</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cc-name"
+          placeholder=""
+          required=""
+        />
+        <small class="text-muted">Full name as displayed on card</small>
+        <div class="invalid-feedback">Name on card is required</div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="cc-number" class="form-label">Credit card number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cc-number"
+          placeholder=""
+          required=""
+        />
+        <div class="invalid-feedback">Credit card number is required</div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="cc-expiration" class="form-label">Expiration</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cc-expiration"
+          placeholder=""
+          required=""
+        />
+        <div class="invalid-feedback">Expiration date required</div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="cc-cvv" class="form-label">CVV</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cc-cvv"
+          placeholder=""
+          required=""
+        />
+        <div class="invalid-feedback">Security code required</div>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+    <div class="d-grid gap-2">
+      <button
+        class="button w-100"
+        type="submit"
+        (click)="submit()"
+        [disabled]="billForm.invalid || isLoading"
+      >
+        Pagar
+      </button>
+    </div>
+  </form>
+</div>
+

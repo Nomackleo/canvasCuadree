@@ -33,7 +33,7 @@ export class CanvasComponent {
   ngOnInit(): void {
     this.walls = this.wallService.walls;
     console.log(this.walls);
-    
+
     this.colorFrames = this.colorFrameService.colorFrames;
     this.simulatorFrame();
   }

@@ -34,7 +34,7 @@
         <hr />
         <p class="filestack-text px-2">
           Haz clic para subir tu imagen. Recuerda que el simulador agrega el
-          valor del print, cuando le des clic a terminar bastidor.
+          valor del print, cuando le des clic a terminar lienzo.
         </p>
         <div class="d-flex justify-content-center">
           <button class="image-button filestack-button2" (click)="openPicker()">
@@ -47,16 +47,18 @@
         <div class="frame-wall">
           <h2 class="fs-3 text-center">Pared</h2>
           <hr />
-          <ul class="wall">
-            <li #wall *ngFor="let wall of walls" [attr.data-wall]="wall.id">
-              <img [src]="wall.img" [alt]="wall.name" [id]="wall.id" />
-            </li>
-          </ul>
+          <div class="d-flex justify-content-center">
+            <ul class="wall">
+              <li #wall *ngFor="let wall of walls" [attr.data-wall]="wall.id">
+                <img [src]="wall.img" [alt]="wall.name" [id]="wall.id" />
+              </li>
+            </ul>
+          </div>
         </div>
         <hr />
         <!-- Bastidor Options -->
         <div class="size-bastidor">
-          <h2 class="fs-3 text-center">Tamaño del Bastidor</h2>
+          <h2 class="fs-3 text-center">Tamaño del Lienzo</h2>
           <hr />
           <div class="frame-size mb-4">
             <div class="d-flex justify-content-center">
@@ -130,7 +132,7 @@
       </div>
     </div>
     <!-- Price Button -->
-    <div class="h-50 border">
+    <div class="h-50 border d-flex justify-content-center">
       <app-modal-price></app-modal-price>
     </div>
   </div>

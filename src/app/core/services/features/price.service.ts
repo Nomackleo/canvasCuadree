@@ -44,7 +44,9 @@ export class PriceService {
     });
   }
   printImage() {
-    this.print = this.uploadImageService.print;
+    this.uploadImageService.print$.subscribe((print: boolean) => {
+      this.print = print;
+    });
   }
 
   totalPrice(priceCanvas: PriceCanvas) {
@@ -59,15 +61,6 @@ export class PriceService {
   price() {
     const $price = document.querySelector('.total-price') as HTMLSpanElement;
 
-    // const frameHeight$: Observable<string> = this.sliderService.frameHeight$;
-    // const frameWidth$: Observable<string> = this.sliderService.frameWidth$;
-
-    // frameHeight$
-    //   .pipe(map((height) => (this.height = Number(height) / 100)))
-    //   .subscribe();
-    // frameWidth$
-    //   .pipe(map((width) => (this.width = Number(width) / 100)))
-    //   .subscribe();
     const $priceButton = document.querySelector(
       '.button-price'
     ) as HTMLButtonElement;
@@ -80,7 +73,8 @@ export class PriceService {
           this.print === true
             ? (this.canvasPrice.print = 460000)
             : (this.canvasPrice.print = 0);
-
+          console.log(this.print);
+          
           this.totalPrice(this.canvasPrice);
         })
       )

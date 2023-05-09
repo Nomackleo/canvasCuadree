@@ -83,7 +83,7 @@ export class WallService {
     const $wall = document.querySelector('.wall') as HTMLUListElement;
 
     const wall$: Observable<any> = fromEvent<MouseEvent>($wall, 'click');
-    const wallButton$ = wall$.pipe(map(this.changeWallTexture));
+    const wallButton$ = wall$.pipe(map( (event:MouseEvent) => this.changeWallTexture(event)));
     wallButton$.subscribe();
   }
 }

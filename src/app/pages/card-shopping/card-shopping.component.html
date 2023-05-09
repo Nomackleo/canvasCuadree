@@ -1,1 +1,36 @@
-<p>card-shopping works!</p>
+<div class="container py-3 animate__animated animate__fadeIn">
+  <main>
+    <div class="row row-cols-1 mb-3 text-center">
+      <div class="col">
+        <div *ngIf="!(user$ | async)" class="d-grid gap-2">
+          <div
+            class="alert alert-warning my-3 animate__animated animate__bounceIn"
+            role="alert"
+          >
+            <a [routerLink]="['/auth/register']">Regístrate</a> para comprar de
+            forma segura y controlar tus datos en nuestra plataforma. Si ya
+            tienes una cuenta, inicia sesión
+            <a [routerLink]="['/auth/login']">aquí</a>. También puedes hacer una
+            compra rápida como invitado con el botón
+            <button class="button w-100" type="button" (click)="loginGuest()">
+              Pagar como Invitado</button
+            >.
+          </div>
+        </div>
+        <h1 class="fs-4 mb-3">Carrito de Compras</h1>
+        <hr />
+        <div class="row g-5">
+          <div
+            *ngIf="dataBill$ | async as bill"
+            class="col-md-6 col-lg-5 order-md-last"
+          >
+            <app-bill [bill$]="dataBill$"></app-bill>
+          </div>
+          <div class="col-md-6 col-lg-7">
+            <app-form-bill></app-form-bill>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
