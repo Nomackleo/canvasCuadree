@@ -5,6 +5,7 @@ import { PriceService } from './price.service';
 import { Subject, combineLatest, map } from 'rxjs';
 import { Bill } from 'src/app/models/bill';
 import { CanvasDisplayService } from './canvas-display.service';
+import { ColorFrame } from 'src/app/models/color';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,16 @@ export class BillService {
   // private kindOfFrameSubject = new Subject<Frames | undefined>();
   // frameName$ = this.kindOfFrameSubject.asObservable(); //* Observable for cath the kind of frame
 
+  private colorCanvasSubject = new Subject<ColorFrame>();
+  colorCanvas$ = this.colorCanvasSubject.asObservable(); //* Observable for cath the color canvas
+
   private dataBillSubject = new Subject<Bill>();
   dataBill$ = this.dataBillSubject.asObservable();
   //*Observable for cath the color passepartout
   
   dataBill: Bill = {
     print: 'No',
-    canvas: 'Extra Grande',
+  canvas: 'Morado|  |',
     size: '100 X 100',
     value: 0,
   };
@@ -43,8 +47,15 @@ export class BillService {
       .subscribe();
   }
 
-  getColorCanvas() {}
+  getColorCanvas(colorCanvas: ColorFrame) {
+    this.colorCanvasSubject.next(colorCanvas);
+  }
 
+  getColor() {
+    return this.colorCanvas$.pipe(
+      map((colorCanvas) => this.dataBill.canvas = colorCanvas!.color)
+    ).subscribe()
+  }
   
 
   getSize() {
@@ -72,7 +83,7 @@ export class BillService {
 
   bills() {
     this.getPrint();
-    this.getColorCanvas();
+    this.getColor();
     this.getSize();
     this.getPrice();
     return this.dataBillSubject.next(this.dataBill);

@@ -1,1 +1,28 @@
-<p>account works!</p>
+<div class="p-5 mb-4 rounded-3">
+  <div class="container-fluid py-5">
+    <hr />
+    <ul class="list-group list-group-flush" *ngIf="user$ | async as user">
+      <li
+        class="list-group-item d-flex w-100 justify-content-between bg-light fw-bold fs-4 mb-3"
+      >
+        Información de cuenta
+        <a
+          [routerLink]="['/user-panel/edit-account']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          ><i class="fa-solid fa-pen fa-xs"></i
+        ></a>
+      </li>
+      <li class="list-group-item fw-bold">
+        Nombre:
+        <p class="text-muted">{{ user.displayName }}</p>
+      </li>
+      <li class="list-group-item fw-bold">
+        Correo:
+        <p class="text-muted">{{ user.email }}</p>
+      </li>
+      <!-- <li class="list-group-item fw-bold">Documento: {{ user }}</li> -->
+      <!-- <li class="list-group-item fw-bold">Fecha de nacimiento: {{ user }}</li> -->
+    </ul>
+  </div>
+</div>

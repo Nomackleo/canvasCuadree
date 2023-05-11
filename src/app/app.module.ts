@@ -14,6 +14,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { PagesModule } from './pages/pages.module';
 import { UserPanelModule } from './pages/user-panel/user-panel.module';
+import { CounterPipe } from './pipes/counter.pipe';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],

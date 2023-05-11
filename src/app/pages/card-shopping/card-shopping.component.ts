@@ -9,9 +9,9 @@ import { Bill } from 'src/app/models/bill';
 @Component({
   selector: 'app-card-shopping',
   templateUrl: './card-shopping.component.html',
-  styleUrls: ['./card-shopping.component.css']
+  styleUrls: ['./card-shopping.component.css'],
 })
-export class CardShoppingComponent implements OnInit{
+export class CardShoppingComponent implements OnInit {
   private auth: Auth = inject(Auth);
   private router = inject(Router);
   private authService = inject(AuthService);
@@ -28,6 +28,9 @@ export class CardShoppingComponent implements OnInit{
   ngOnInit(): void {
     // this.dataBill$ = this.billService.dataBill$;
     this.getDataBill();
+    setInterval(() => {
+      this.isAuth = true;
+    }, 3000);
   }
 
   getDataBill() {

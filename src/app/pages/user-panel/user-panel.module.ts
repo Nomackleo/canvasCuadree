@@ -10,17 +10,19 @@ import { InvoiceComponent } from 'src/app/shared/components/invoice/invoice.comp
 import { SidemenuComponent } from 'src/app/shared/components/sidemenu/sidemenu.component';
 import { UserPanelComponent } from './user-panel.component';
 import { ComponentsSharedModule } from 'src/app/shared/components/components-shared.module';
+import { CounterPipe } from 'src/app/pipes/counter.pipe';
 
 @NgModule({
-  declarations: [
-    AccountComponent,
-    AdminComponent,
-    EditAccountComponent,
-    InvoiceComponent,
-    OrdersComponent,
-    SidemenuComponent,
-    UserPanelComponent,
-  ],
-  imports: [CommonModule, UserPanelRoutingModule, ComponentsSharedModule],
+    declarations: [
+        AccountComponent,
+        AdminComponent,
+        EditAccountComponent,
+        InvoiceComponent,
+        OrdersComponent,
+        SidemenuComponent,
+        UserPanelComponent,
+    ],
+    providers: [CounterPipe],
+    imports: [CommonModule, UserPanelRoutingModule, ComponentsSharedModule, CounterPipe]
 })
 export class UserPanelModule {}

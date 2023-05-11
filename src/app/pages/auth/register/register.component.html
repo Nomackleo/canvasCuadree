@@ -1,1 +1,183 @@
-<p>register works!</p>
+<div class="container animate__animated animate__fadeIn">
+  <div
+    class="row justify-content-center align-items-center d-flex"
+    style="height: 100vh"
+  >
+    <div
+      *ngIf="isMessage || isSuccess || isError"
+      class="animate__animated animate__bounceIn"
+    >
+      <app-errors
+        #erorsComponent
+        *ngIf="isMessage"
+        class="animate__animated animate__bounceIn"
+        [message]="messagesErrors"
+        [isMessage]="isMessage"
+        [isError]="isError"
+        [isSuccess]="isSuccess"
+      ></app-errors>
+    </div>
+    <div class="col-lg-6 col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <a [routerLink]="['/frame']">
+            <i class="fa-solid fa-chevron-left fa-xl ms-2 mt-4"></i>
+          </a>
+          <h2 class="card-title text-center mb-4">Crear una cuenta</h2>
+          <!-- Form -->
+          <form [formGroup]="registerForm" (ngSubmit)="signUp()">
+            <!-- Name -->
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="name"
+                name="name"
+                formControlName="name"
+                placeholder="Ingresa tu nombre"
+                required
+              />
+            </div>
+            <span
+              class="form-text text-danger"
+              *ngIf="
+                registerForm.controls['name'].invalid &&
+                (registerForm.controls['name'].dirty ||
+                  registerForm.controls['name'].touched)
+              "
+            >
+              Tu nombre es requerido
+            </span>
+            <!-- Lastname -->
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="lastname"
+                name="lastname"
+                formControlName="lastname"
+                placeholder="Ingresa tu apellido"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  registerForm.controls['lastname'].invalid &&
+                  (registerForm.controls['lastname'].dirty ||
+                    registerForm.controls['lastname'].touched)
+                "
+              >
+                Tu apellido es requerido
+              </span>
+            </div>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="username"
+                name="username"
+                formControlName="username"
+                placeholder="Ingresa tu nombre de usuario"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  registerForm.controls['username'].invalid &&
+                  (registerForm.controls['username'].dirty ||
+                    registerForm.controls['username'].touched)
+                "
+              >
+                Tu nombre de usuario es requerido
+              </span>
+            </div>
+            <!-- Email -->
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                id="email"
+                name="email"
+                formControlName="email"
+                placeholder="example@email.com"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  registerForm.controls['email'].invalid &&
+                  (registerForm.controls['email'].dirty ||
+                    registerForm.controls['email'].touched)
+                "
+              >
+                Introduce un correo electrónico válido
+              </span>
+              <span class="form-text text-danger" *ngIf="fieldInvalid('email')">
+                {{ emailErrorMsg }}
+              </span>
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                id="password"
+                name="password"
+                formControlName="password"
+                placeholder="Insgresa tu contraseña"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  registerForm.controls['password'].invalid &&
+                  (registerForm.controls['password'].dirty ||
+                    registerForm.controls['password'].touched)
+                "
+              >
+                "La contraseña debe tener al menos una letra mayúscula, una
+                letra minúscula, un número y un carácter especial (#?!@$%^&*-)."
+              </span>
+            </div>
+            <!-- Confirm Password -->
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                id="confirm-password"
+                name="confirmPassword"
+                formControlName="confirmPassword"
+                placeholder="Ingresa tu contraseña nuevamente"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  registerForm.controls['confirmPassword'].invalid &&
+                  (registerForm.controls['confirmPassword'].dirty ||
+                    registerForm.controls['confirmPassword'].touched)
+                "
+              >
+                La contraseña debe ser la misma.
+              </span>
+            </div>
+            <!-- Submit Button -->
+
+            <button
+              type="submit"
+              class="button w-100 mb-3 active"
+              [disabled]="registerForm.invalid || isLoading"
+            >
+              <span *ngIf="!isLoading">Crear cuenta</span>
+            </button>
+          </form>
+          <hr />
+          <p class="text-center mb-0">
+            ¿Ya tienes una cuenta?
+            <a href="#" [routerLink]="['./auth/login']">Iniciar sesión</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, fromEvent, map } from 'rxjs';
 import { ColorFrame } from 'src/app/models/color';
+import { BillService } from './bill.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ColorFrameService {
+  billService = inject(BillService);
+
   public colorFrames: ColorFrame[] = [
     {
       name: 'amarillo_brillante',
@@ -65,7 +68,7 @@ export class ColorFrameService {
       name: 'negro',
       id: 'rn',
       img: './assets/img/retablos/negro.png',
-      color: 'balck',
+      color: 'black',
     },
     {
       name: 'ocre',
@@ -113,6 +116,10 @@ export class ColorFrameService {
     this.colorFrames.map((color) => {
       if (targetId !== color.id) return;
       else $leftFrame.style.backgroundImage = `url(${color.img})`;
+      /**
+       * TODO: Color of bill
+       */
+      this.billService.getColorCanvas(color)
     });
   }
 
@@ -124,7 +131,7 @@ export class ColorFrameService {
       'click'
     );
     const colorButton = colorFrame$
-      .pipe(map((event:MouseEvent) => this.colors(event)))
+      .pipe(map((event: MouseEvent) => this.colors(event)))
       .subscribe();
   }
 }

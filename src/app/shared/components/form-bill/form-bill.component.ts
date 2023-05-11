@@ -12,7 +12,7 @@ import { ErrorMessage } from 'src/app/models/error-message';
 @Component({
   selector: 'app-form-bill',
   templateUrl: './form-bill.component.html',
-  styleUrls: ['./form-bill.component.css']
+  styleUrls: ['./form-bill.component.css'],
 })
 export class FormBillComponent implements OnInit {
   @ViewChild('errorsComponent', { static: false })
@@ -33,6 +33,7 @@ export class FormBillComponent implements OnInit {
   // bricksBuilder = this.mercadopago.bricks();
   // mercadopago = mercadopago.
   declare Mercadopago: any;
+  pay: boolean = false;
 
   billMercadoPago: BillMercadoPago = {
     bill: {} as Partial<Bill>,
@@ -143,6 +144,7 @@ export class FormBillComponent implements OnInit {
       pay: false,
       id: this.counterCodeBill,
     };
+    this.pay = true;
     this.clientBillService.create(this.billMercadoPago);
     return this.billMercadoPago;
   }

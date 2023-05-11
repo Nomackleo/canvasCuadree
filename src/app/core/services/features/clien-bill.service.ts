@@ -51,30 +51,6 @@ export class ClienBillService {
     return this.clientBill.asObservable();
   }
 
-  // // Create invoice reference
-  // invoiceRef<T = Bill | BillMercadoPago>(billId: string) {
-  //   const billCol = collection(
-  //     this.firestore,
-  //     'invoice'
-  //   ) as CollectionReference<T>;
-  //   return doc<T>(billCol, billId);
-  // }
-
-  // // Creaet a invoice observable
-  // invoice$(invoiceId: string) {
-  //   const ref = this.invoiceRef<ResumeSnap>(invoiceId);
-  //   const invoice$ = docData(ref, { idField: 'id' });
-  //   return invoice$.pipe(
-  //     withLatestFrom(this.experiences$(invoiceId)),
-  //     map(([invoice, experiencesSnap]) => {
-  //       return {
-  //         ...invoice,
-  //         experiences: this.setExperiencesDefaults(experiencesSnap),
-  //       };
-  //     })
-  //   );
-  // }
-
   getAll$() {
     return collectionData(this.invoiceCollection, {
       idField: 'id',

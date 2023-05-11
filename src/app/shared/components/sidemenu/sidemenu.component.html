@@ -1,1 +1,92 @@
-<p>sidemenu works!</p>
+<!-- Correct sidebar -->
+<div
+  *ngIf="user$ | async as user"
+  class="d-flex flex-column flex-shrink-0 p-3 bg-light"
+  style="min-width: 180px; max-width: 240px; height: 90vh"
+>
+  <a
+    href="/"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+  >
+    <!-- <img src="../assets/logos/cuadree-logo.jpg" alt="Cuadree logo" class="w-25 me-2"> -->
+    <span class="fs-4">{{ user.displayName }}</span>
+  </a>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a
+        class="nav-link link-dark"
+        aria-current="page"
+        [routerLink]="['/frame']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="fa-solid fa-house fa-lg me-2"></i>
+        Edita tu Marco
+      </a>
+    </li>
+    <li>
+      <a
+        class="nav-link link-dark"
+        [routerLink]="['/user-panel/account']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="fa-solid fa-user fa-lg me-2"></i>
+        Mi Cuenta
+      </a>
+    </li>
+    <li>
+      <a
+        class="nav-link link-dark"
+        [routerLink]="['/user-panel/orders']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="fa-solid fa-money-check-dollar fa-lg me-2"></i>
+        Mis Pedidos
+      </a>
+    </li>
+    <li>
+      <a
+        class="nav-link link-dark"
+        href="https://cuadree.com/terminos-y-condiciones/"
+      >
+        <i class="fa-solid fa-file-lines fa-lg me-2"></i>
+        Términos y Condiciones
+      </a>
+    </li>
+    <li>
+      <a
+        class="nav-link link-dark"
+        [routerLink]="['/user-panel/admin']"
+        routerLinkActive="active"
+      >
+        <i class="fa-solid fa-unlock-keyhole fa-lg me-2"></i>
+        Admin
+      </a>
+    </li>
+  </ul>
+  <hr />
+  <div class="dropdown align-items-end">
+    <a
+      href="#"
+      class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+      id="dropdownUser2"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        src="{{ user.photoURL }}"
+        alt="{{ user.displayName }}"
+        width="32"
+        height="32"
+        class="rounded-circle me-2"
+      />
+    </a>
+    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+

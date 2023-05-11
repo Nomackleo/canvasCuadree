@@ -1,1 +1,144 @@
-<p>login works!</p>
+<div class="container animate__animated animate__fadeIn">
+  <div
+    class="row justify-content-center align-items-center d-flex"
+    style="height: 100vh"
+  >
+    <div class="col-lg-6 col-md-8">
+      <div
+        *ngIf="isMessage || isSuccess || isError"
+        class="animate__animated animate__bounceIn"
+      >
+        <app-errors
+          #erorsComponent
+          [message]="messagesErrors"
+          [isMessage]="isMessage"
+          [isError]="isError"
+          [isSuccess]="isSuccess"
+        ></app-errors>
+      </div>
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <a [routerLink]="['/frame']">
+            <i class="fa-solid fa-chevron-left fa-xl ms-2 mt-4"></i>
+          </a>
+
+          <h2 class="card-title text-center mb-4">Iniciar sesión</h2>
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <!-- Email -->
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                id="email"
+                name="email"
+                formControlName="email"
+                placeholder="example@email.com"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  loginForm.controls['email'].invalid &&
+                  (loginForm.controls['email'].dirty ||
+                    loginForm.controls['email'].touched)
+                "
+              >
+                Introduce un correo electrónico válido
+              </span>
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                id="password"
+                name="password"
+                formControlName="password"
+                placeholder="Insgresa tu contraseña"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  loginForm.controls['password'].invalid &&
+                  (loginForm.controls['password'].dirty ||
+                    loginForm.controls['password'].touched)
+                "
+              >
+                "La contraseña debe tener al menos una letra mayúscula, una
+                letra minúscula, un número y un carácter especial (#?!@$%^&*-)."
+              </span>
+            </div>
+            <button
+              type="submit"
+              class="button w-100 mb-3 active"
+              [disabled]="loginForm.invalid || isLoading"
+            >
+              Ingresar con correo electrónico
+            </button>
+            <div class="d-flex justify-content-center">
+              <div *ngIf="isLoading" class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </form>
+          <!-- Social Sigin -->
+          <hr />
+          <p class="text-center mb-3">O ingresa con:</p>
+          <div class="container d-flex justify-content-center">
+            <div class="row">
+              <div class="col">
+                <button
+                  type="button"
+                  class="social-button google-button mx-auto"
+                  (click)="loginWithGoogle()"
+                >
+                  <i class="fa-brands fa-google"></i>
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  type="button"
+                  class="social-button facebook-button mx-auto"
+                  (click)="loginWithFacebook()"
+                >
+                  <i class="fa-brands fa-facebook"></i>
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  type="button"
+                  class="social-button microsoft-button mx-auto"
+                  disabled
+                >
+                  <i class="fa-brands fa-windows"></i>
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  type="button"
+                  class="social-button twitter-button mx-auto"
+                  disabled
+                >
+                  <i class="fa-brands fa-twitter"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Register -->
+          <hr />
+          <p class="text-center mb-0">
+            Si quieres crear una cuenta
+            <a [routerLink]="['../register']">Registrate</a>
+          </p>
+          <!-- Recover Password -->
+          <hr />
+
+          <p class="text-center mb-0">
+            <a [routerLink]="['../recover-password']">Recuperar contraseña</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

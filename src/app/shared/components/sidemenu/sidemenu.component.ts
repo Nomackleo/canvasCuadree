@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidemenu.component.css']
 })
 export class SidemenuComponent {
+  private authService = inject(AuthService);
+  private auth: Auth = this.authService.auth;
 
+  user$ = this.authService.user$;
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  signOut() {
+    this.authService.signOut(this.auth);
+  }
 }

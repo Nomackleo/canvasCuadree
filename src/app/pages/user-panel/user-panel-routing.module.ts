@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../auth/login/login.component';
-import { RegisterComponent } from '../auth/register/register.component';
-import { RecoverPassComponent } from '../auth/recover-pass/recover-pass.component';
-import { EmailVerificationComponent } from '../auth/email-verification/email-verification.component';
+import { canActivate } from '@angular/fire/auth-guard';
+
 import { UserPanelComponent } from './user-panel.component';
 import { AccountComponent } from './account/account.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AdminComponent } from './admin/admin.component';
+import { map } from 'rxjs';
+
+const mainAdmin: string = 'zDKQo9Vx4zTbnjIe3R5Psj3aqkJ2';
+const secondAdmin: string = 'QVq0nws9kSh3II3AapSr1yh9eLI2';
+
+const adminOnly = () =>
+  map(
+    (user: any) =>
+      (!!user && user.uid === mainAdmin) || user.uid === secondAdmin
+  );
 
 const routes: Routes = [
   {
@@ -21,7 +29,7 @@ const routes: Routes = [
         component: EditAccountComponent,
       },
       { path: 'orders', component: OrdersComponent },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin', component: AdminComponent, ...canActivate(adminOnly) },
 
       { path: '**', redirectTo: '' },
     ],
