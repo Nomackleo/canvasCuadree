@@ -8,7 +8,8 @@ import { BillMercadoPago } from 'src/app/models/bill';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-  @Input() invoice$!: Observable<BillMercadoPago[]>;
+  // @Input() invoice$!: Observable<BillMercadoPago[]>;
+  @Input() invoice!: BillMercadoPago[];
   @Input() showDetail!: string | null;
   @Output() showInvoiceEmitter = new EventEmitter<BillMercadoPago>();
   @Output() deleteInvoice = new EventEmitter<void>();

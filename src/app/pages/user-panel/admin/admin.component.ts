@@ -15,12 +15,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   showDetail: string | null = null;
 
   allInvoices: BillMercadoPago[] = [];
-  currentPage: number = 1;
-  itemsPerPage: number = 20;
-  totalItems: number = 0;
-  pageSize = 2;
-  totalPages: number = 0;
-  pages: number[] = [];
+  page: number = 1;
+  itemsPerPage: number = 2;
+  pageSize = 20;
 
   private subscriptions = new Subscription();
   constructor() {}
@@ -30,36 +27,23 @@ export class AdminComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.allInvoices$ = this.clientBillService.getAll$();
-    this.allInvoices$.subscribe((invoices: BillMercadoPago[]) => {
-      this.allInvoices = invoices;
-      this.totalItems = invoices.length;
-      this.calculatePages();
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      invoices.slice(start, end);
-      console.log(this.totalItems, this.totalPages);
-    });
+    this.getDisplayedInvoices();
   }
-  // allInvoices.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  getDisplayedInvoices() {
+    return this.allInvoices$
+      .pipe(
+        map((invoices: BillMercadoPago[]) => {
+          this.allInvoices = invoices;
+        })
+      )
+      .subscribe();
+  }
 
-  calculatePages() {
-    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    for (let i = 1; i <= this.totalPages; i++) {
-      this.pages.push(i);
-    }
-  }
   showInvoice(invoice: BillMercadoPago) {
     this.showDetail = invoice.id;
   }
 
-  onPageChange(pageNumber: number): void {
-    if (pageNumber >= 1 && pageNumber <= this.pages.length) {
-      this.currentPage = pageNumber;
-    }
-  }
-
   ngOnDestroy(): void {
     // Desuscribirse de todas las suscripciones juntas.
-    this.subscriptions.unsubscribe();
   }
 }

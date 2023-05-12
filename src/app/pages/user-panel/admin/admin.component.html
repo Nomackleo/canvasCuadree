@@ -1,31 +1,24 @@
 <div class="row g-4">
   <h1 class="text-center fs-1 mt-5">Facturas</h1>
-  <hr>
+  <hr />
   <app-invoice
-    [invoice$]="allInvoices$"
+    [invoice]="
+      allInvoices
+        | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize
+    "
     [showDetail]="showDetail"
     (showInvoiceEmitter)="showInvoice($event)"
   ></app-invoice>
-  <ul class="pagination justify-content-center">
-    <li class="page-item" [ngClass]="{ disabled: currentPage === 1 }">
-      <a class="page-link" href="#" (click)="onPageChange(currentPage - 1)"
-        >Previous</a
-      >
-    </li>
-    <li
-      *ngFor="let pageNumber of pages"
-      [ngClass]="{ active: currentPage === pageNumber }"
-    >
-      <a class="page-link" href="#" (click)="onPageChange(pageNumber)">{{
-        pageNumber
-      }}</a>
-    </li>
-    <li class="page-item" [ngClass]="{ disabled: currentPage === totalPages }">
-      <a class="page-link" href="#" (click)="onPageChange(currentPage + 1)"
-        >Next</a
-      >
-    </li>
-  </ul>
-
-  <p>Current page: {{ currentPage }}</p>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [pageSize]="20"
+      [collectionSize]="100"
+      [(page)]="page"
+      [boundaryLinks]="true"
+      aria-label="Default pagination"
+    ></ngb-pagination>
+  </div>
+  <p class="text-center">
+    Current page: <span style="color: #9975e6">{{ page }}</span>
+  </p>
 </div>

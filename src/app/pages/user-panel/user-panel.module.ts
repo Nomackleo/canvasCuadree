@@ -11,6 +11,7 @@ import { SidemenuComponent } from 'src/app/shared/components/sidemenu/sidemenu.c
 import { UserPanelComponent } from './user-panel.component';
 import { ComponentsSharedModule } from 'src/app/shared/components/components-shared.module';
 import { CounterPipe } from 'src/app/pipes/counter.pipe';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,6 @@ import { CounterPipe } from 'src/app/pipes/counter.pipe';
         UserPanelComponent,
     ],
     providers: [CounterPipe],
-    imports: [CommonModule, UserPanelRoutingModule, ComponentsSharedModule, CounterPipe]
+    imports: [CommonModule, UserPanelRoutingModule, ComponentsSharedModule, CounterPipe, NgbPaginationModule]
 })
 export class UserPanelModule {}

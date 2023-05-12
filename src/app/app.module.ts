@@ -15,6 +15,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { PagesModule } from './pages/pages.module';
 import { UserPanelModule } from './pages/user-panel/user-panel.module';
 import { CounterPipe } from './pipes/counter.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -28,6 +29,7 @@ import { CounterPipe } from './pipes/counter.pipe';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
+    NgbModule,
   ],
   providers: [CurrencyPipe],
   bootstrap: [AppComponent],

@@ -1,7 +1,7 @@
 <div
   class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 animate__animated animate__fadeIn"
 >
-  <div class="col p-2" *ngFor="let invoice of invoice$ | async; let i = index">
+  <div class="col p-2" *ngFor="let invoice of invoice; let i = index">
     <div class="card" (click)="showInvoice(invoice)">
       <div class="card-header">
         <h4 class="d-flex justify-content-between align-items-center mb-3">

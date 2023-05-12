@@ -575,3 +575,26 @@ input[type="range"]::-ms-fill-upper {
 .dropdown-item.active {
   background-color: #9975e6;
 }
+
+.page-link {
+  color: #7537fc;
+  background-color: #fff;
+  border: var(--bs-pagination-border-width) solid #d6c7f5;
+}
+.page-link:hover {
+  color: #2d2345;
+  background-color: #eae3fa;
+}
+
+.page-link:focus {
+  color: #f4f1fc;
+  background-color: #9975e6;
+  box-shadow: #1e172e;
+}
+.page-link.active, .active > .page-link {
+  background-color: #9975e6;
+  border-color: #9975e6;
+}
+
+
+
