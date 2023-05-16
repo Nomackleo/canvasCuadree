@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       this.updateUserData(result!.user);
-      this.router.navigate(['/frame']);
+      this.router.navigate(['/canvas']);
     });
   }
 

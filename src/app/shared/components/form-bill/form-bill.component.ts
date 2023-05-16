@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { ErrorsComponent } from '../errors/errors.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { Auth, User, authState } from '@angular/fire/auth';
+
+import { ErrorsComponent } from '../errors/errors.component';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ClienBillService } from 'src/app/core/services/features/clien-bill.service';
 import { ValidatorFieldsService } from 'src/app/core/services/auth/validator-fields.service';
 import { FirebaseCodeErrorService } from 'src/app/core/services/auth/firebase-code-error.service';
 import { Bill, BillMercadoPago, UserBill } from 'src/app/models/bill';
 import { ErrorMessage } from 'src/app/models/error-message';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-form-bill',
@@ -32,8 +35,12 @@ export class FormBillComponent implements OnInit {
   // mercadopago = new mercadopago(environment.mercadoPago.publicKey);
   // bricksBuilder = this.mercadopago.bricks();
   // mercadopago = mercadopago.
+  private auth: Auth = this.authService.auth;
+  user$ = authState(this.auth);
+
   declare Mercadopago: any;
   pay: boolean = false;
+  user: boolean = false;
 
   billMercadoPago: BillMercadoPago = {
     bill: {} as Partial<Bill>,
@@ -79,7 +86,7 @@ export class FormBillComponent implements OnInit {
         Validators.pattern(this.validatorFieldsService.emailPattern),
       ],
     ],
-    celular: [
+    phone: [
       '',
       [
         Validators.required,
@@ -89,7 +96,9 @@ export class FormBillComponent implements OnInit {
     address: ['', [Validators.required]],
     address2: [''],
   });
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getUser();
+  }
 
   ngAfterViewInit(): void {
     // const mercadopago = this.Mercadopago.setPublishableKey(
@@ -126,8 +135,21 @@ export class FormBillComponent implements OnInit {
     });
   }
 
+  getUser() {
+    this.user$
+      .pipe(
+        filter((user: User | null) => user !== null),
+        map((user) => user!)
+      )
+      .subscribe((user: User) => {
+        this.billMercadoPago.user.uid = user!.uid;
+        !user ? (this.user = false) : (this.user = true);
+      });
+  }
+
   submit(): BillMercadoPago {
     this.getBill();
+    this.getUser();
     let counterId = Number(this.counterCodeBill);
     counterId++;
     this.counterCodeBill = `0000${counterId}`;
@@ -146,6 +168,8 @@ export class FormBillComponent implements OnInit {
     };
     this.pay = true;
     this.clientBillService.create(this.billMercadoPago);
+
+    setTimeout(() => this.router.navigate(['/canvas']), 5000);
     return this.billMercadoPago;
   }
 }

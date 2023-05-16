@@ -271,6 +271,12 @@ hr {
 .button-price:active {
   border-color: #7537fc;
 }
+.image-button:disabled,
+.button:disabled,
+.button-price:disabled {
+  border-color: #ccbaf2;
+  pointer-events: none;
+}
 
 .frame-size {
   margin-top: 2rem;
@@ -568,6 +574,7 @@ input[type="range"]::-ms-fill-upper {
   background-color: #ccbaf2;
 }
 
+
 .list-group-item-primary {
   background-color: #ccbaf2;
 }
@@ -598,3 +605,16 @@ input[type="range"]::-ms-fill-upper {
 
 
 
+.invoice {
+  transition: all 0.3s ease;
+}
+
+.invoice:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.invoice:active {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

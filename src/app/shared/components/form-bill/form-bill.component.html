@@ -1,4 +1,5 @@
 <div>
+  <!-- <div *ngIf="!user$ | async">Cojones</div> -->
   <div
     *ngIf="isMessage || isSuccess || isError"
     class="animate__animated animate__bounceIn"
@@ -66,8 +67,8 @@
       <!-- Email -->
       <div class="col-12">
         <label for="email" class="form-label"
-          >Email <span class="text-muted"></span></label
-        >
+          >Email <span class="text-muted"></span
+        ></label>
         <input
           type="email"
           class="form-control form-control-lg"
@@ -97,18 +98,18 @@
         <input
           type="tel"
           class="form-control form-control-lg"
-          id="celular"
-          name="celular"
-          formControlName="celular"
+          id="phone"
+          name="phone"
+          formControlName="phone"
           placeholder="Ingresa tu número de contacto"
           required
         />
         <span
           class="form-text text-danger"
           *ngIf="
-            billForm.controls['celular'].invalid &&
-            (billForm.controls['celular'].dirty ||
-              billForm.controls['celular'].touched)
+            billForm.controls['phone'].invalid &&
+            (billForm.controls['phone'].dirty ||
+              billForm.controls['phone'].touched)
           "
         >
           Tu numero de contacto es requerido, para que Cuadree se pueda
@@ -161,7 +162,7 @@
         class="button w-100"
         type="submit"
         (click)="submit()"
-        [disabled]="billForm.invalid || isLoading"
+        [disabled]="billForm.invalid || isLoading || !user"
       >
         Pagar
       </button>

@@ -86,7 +86,7 @@ export class AuthService {
             'Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nuestro equipo de soporte.',
         };
         user.user.emailVerified
-          ? this.router.navigate(['/frame'])
+          ? this.router.navigate(['/canvas'])
           : this.firebaseCodeErrorService.setMessage(this.messagesErrors);
         this.isMessage = true;
         this.isLoading = false;
@@ -106,20 +106,10 @@ export class AuthService {
 
   signUp(registerForm: FormGroup, email: string, password: string) {}
 
-  // signOut() {
-  //   this.user$.subscribe((user) => console.log(user));
-  //   return this.auth
-  //     .signOut()
-  //     .then(() => {
-  //       this.router.navigate(['/frame']);
-  //       console.log('ok');
-  //     })
-  //     .catch((error) => console.log(error));
-  // }
-  signOut(auth: Auth) {
-    return auth.signOut().then(() => {
-      this.router.navigate(['/frame']);
-      console.log('ok');
-    });
+  async signOut(auth: Auth) {
+    return auth
+      .signOut()
+      .then(() => this.router.navigate(['/canvas']))
+      .catch((error) => console.warn(error));
   }
 }

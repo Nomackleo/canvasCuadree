@@ -26,9 +26,7 @@ export class HeaderComponent {
     this.userSubscription.unsubscribe();
   }
   singOut() {
-    this.authService.signOut(this.auth);
-    // this.auth.signOut().then(() => {
-    //   this.router.navigate(['/frame']);
-    // });
+    this.authService
+      .signOut(this.auth)
   }
 }

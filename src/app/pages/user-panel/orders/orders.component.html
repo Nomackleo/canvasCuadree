@@ -1,1 +1,24 @@
-<p>orders works!</p>
+<div class="row g-4">
+  <h1 class="text-center fs-1 mt-5">Facturas</h1>
+  <hr />
+  <app-invoice
+    [invoice]="
+      allInvoices
+        | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize
+    "
+    [showDetail]="showDetail"
+    (showInvoiceEmitter)="showInvoice($event)"
+  ></app-invoice>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [pageSize]="20"
+      [collectionSize]="100"
+      [(page)]="page"
+      [boundaryLinks]="true"
+      aria-label="Default pagination"
+    ></ngb-pagination>
+  </div>
+  <p class="text-center">
+    Current page: <span style="color: #9975e6">{{ page }}</span>
+  </p>
+</div>
