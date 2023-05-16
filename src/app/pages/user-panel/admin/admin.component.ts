@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { Auth, authState } from '@angular/fire/auth';
 import { Observable, Subscription, filter, map } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ClienBillService } from 'src/app/core/services/features/clien-bill.service';
 import { BillMercadoPago } from 'src/app/models/bill';
 
@@ -33,6 +31,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.getDisplayedInvoices();
     setTimeout(() => console.log(this.allInvoices), 2000);
   }
+
   getDisplayedInvoices() {
     return this.allInvoices$
       .pipe(
