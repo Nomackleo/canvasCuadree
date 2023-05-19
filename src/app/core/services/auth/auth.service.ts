@@ -6,7 +6,10 @@ import {
   Auth,
   FacebookAuthProvider,
   GoogleAuthProvider,
+  UserCredential,
   authState,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInAnonymously,
   signInWithEmailAndPassword,
   signInWithRedirect,
@@ -73,10 +76,9 @@ export class AuthService {
   }
 
   // login with email and password
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((user) => {
-        this.isLoading = true;
         console.log(user);
         this.messagesErrors = {
           title: 'Verificación de cuenta',
@@ -104,7 +106,42 @@ export class AuthService {
       });
   }
 
-  signUp(registerForm: FormGroup, email: string, password: string) {}
+  async signUp(email: string, password: string, confirmPassword: string) {
+    this.isLoading = true;
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+        this.isLoading = false;
+        this.verificationEmail();
+      })
+      .catch((error) => {
+        this.messagesErrors = {
+          title: 'Error',
+          message: this.firebaseCodeErrorService.firebaseError(error.code),
+          suggestion: 'Por favor soluciona el problema para poder continuar',
+        };
+        this.firebaseCodeErrorService.setMessage(this.messagesErrors);
+        this.isError = true;
+
+        console.log(error);
+      });
+  }
+
+  async verificationEmail() {
+    return sendEmailVerification(this.auth.currentUser!).then(() => {
+      this.isLoading = false;
+      this.messagesErrors = {
+        title: 'Email de verificación',
+        message:
+          'El usuario fue registrado con éxito, se ha enviado un email de verificación',
+        suggestion:
+          'Revisa tu email, sigue las instrucciones y disfruta de Cuadree',
+      };
+      this.isSuccess = true;
+      this.firebaseCodeErrorService.setMessage(this.messagesErrors);
+      setTimeout(() => this.router.navigate(['/auth/login']), 3000);
+    });
+  }
 
   async signOut(auth: Auth) {
     return auth

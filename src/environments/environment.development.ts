@@ -11,4 +11,9 @@ export const environment = {
   filestack: {
     apiKey: 'AVRRcmyQQwm3Ncv4MOG7lz',
   },
+  adminUsers: {
+    admin1: 'ysYSUICWP0alGKeJNz6zGzdZnii2',
+    admin2: 'I54jOV1xsFW6rOyp3pHCXOxUOIi2',
+    admin3: 'QVq0nws9kSh3II3AapSr1yh9eLI2',
+  },
 };

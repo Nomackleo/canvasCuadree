@@ -8,14 +8,14 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AdminComponent } from './admin/admin.component';
 import { map } from 'rxjs';
-
-const mainAdmin: string = 'zDKQo9Vx4zTbnjIe3R5Psj3aqkJ2';
-const secondAdmin: string = 'QVq0nws9kSh3II3AapSr1yh9eLI2';
+import { environment } from 'src/environments/environment';
 
 const adminOnly = () =>
   map(
     (user: any) =>
-      (!!user && user.uid === mainAdmin) || user.uid === secondAdmin
+      (!!user && user.uid === environment.adminUsers.admin1) ||
+      user.uid === environment.adminUsers.admin2 ||
+      user.uid === environment.adminUsers.admin3
   );
 
 const routes: Routes = [

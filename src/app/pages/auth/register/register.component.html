@@ -9,9 +9,7 @@
     >
       <app-errors
         #erorsComponent
-        *ngIf="isMessage"
-        class="animate__animated animate__bounceIn"
-        [message]="messagesErrors"
+        [message]="message"
         [isMessage]="isMessage"
         [isError]="isError"
         [isSuccess]="isSuccess"
@@ -168,8 +166,13 @@
               class="button w-100 mb-3 active"
               [disabled]="registerForm.invalid || isLoading"
             >
-              <span *ngIf="!isLoading">Crear cuenta</span>
+              Crear cuenta
             </button>
+            <div class="d-flex justify-content-center">
+              <div *ngIf="isLoading" class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </form>
           <hr />
           <p class="text-center mb-0">
