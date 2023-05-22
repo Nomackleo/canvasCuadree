@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/user-panel/user-panel.module').then(
         (m) => m.UserPanelModule
-      ),
+      ), 
   },
   {
     path: 'canvas',

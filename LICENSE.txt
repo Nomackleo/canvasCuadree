@@ -1,0 +1,17 @@
+MIT LICENSE
+
+Este software y su documentación asociada (en adelante, "Simulador Cuadree") están sujetos a los términos y condiciones de la licencia MIT.
+
+Copyright 2023 Leonel Antonio Salcedo
+
+Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de esta Aplicación y archivos de documentación asociados (en adelante, "Dimulador Cuadree"), para utilizar la Aplicación sin restricciones, incluidos, entre otros, los derechos de uso, copia, modificación, fusión, publicación, distribución, sublicencia y/o venta de copias de la Aplicación, y para permitir a las personas a las que se les proporcione la Aplicación que lo hagan, sujeto a las siguientes condiciones:
+
+1. El código fuente de la Aplicación no puede ser utilizado, copiado, modificadoo redistribuido sin el permiso explícito por escrito de [Leonel Antonio Salcedo].
+
+2. Los derechos comerciales de la Aplicación, incluyendo, pero no limitado a, la venta, distribución o sublicencia de la Aplicación con fines comerciales, son propiedad exclusiva de Leonel Antonio Salcedo. Cualquier uso con fines comerciales de la Aplicación sin el permiso explícito por escrito de Leonel Antonio Salcedo está estrictamente prohibido.
+
+3. El titular de los derechos de autor y los titulares de esta licencia no se responsabilizan de ninguna reclamación, daño o cualquier otra responsabilidad que surja del uso, distribución o modificación de la Aplicación.
+
+Todas las demás disposiciones y condiciones de la licencia MIT siguen siendo aplicables y se aplican a la Aplicación.
+
+2023 Leonel Antonio Salcedo

@@ -52,13 +52,16 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    getRedirectResult(this.auth).then((result) => {
-      if (!result) {
-        return;
-      }
-      this.updateUserData(result!.user);
-      this.router.navigate(['/canvas']);
-    });
+    getRedirectResult(this.auth)
+      .then((result) => {
+        if (!result) {
+          return;
+        }
+
+        this.updateUserData(result!.user);
+        this.router.navigate(['/canvas']);
+      })
+      .catch((error) => console.log(error));
     this.firebaseCodeErrorService.message$
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((message) => {
@@ -93,7 +96,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle() {
-    // signInWithRedirect(this.auth, this.provider);
     this.authService.loginWithGoogle();
   }
 

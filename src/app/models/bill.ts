@@ -2,12 +2,12 @@
 // import { Phone } from 'mercadopago/shared/phone';
 
 export interface UserBill {
-  name: string | undefined;
-  lastname: string | undefined;
-  email: string | undefined;
-  phone: number | undefined;
-  address: string | undefined;
-  uid: string | undefined;
+  name: string;
+  lastname: string;
+  email: string;
+  phone?: number | undefined;
+  address?: string | undefined;
+  uid?: string | undefined;
 }
 export interface Bill {
   print: string;

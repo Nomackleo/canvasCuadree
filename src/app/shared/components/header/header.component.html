@@ -31,7 +31,20 @@
           class="nav-item dropdown"
           *ngIf="user$ | async as user; else signIn"
         >
+          <ng-template #name>
+            <a
+              class="nav-link dropdown-toggle"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-user"></i> Mi cuenta
+            </a>
+          </ng-template>
+
           <a
+            *ngIf="user.displayName; else name"
             class="nav-link dropdown-toggle"
             id="userDropdown"
             role="button"

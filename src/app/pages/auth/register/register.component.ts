@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {
   Auth,
+  authState,
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from '@angular/fire/auth';
@@ -23,6 +24,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { FirebaseCodeErrorService } from 'src/app/core/services/auth/firebase-code-error.service';
 import { ValidatorFieldsService } from 'src/app/core/services/auth/validator-fields.service';
+import { FirebaseService } from 'src/app/core/services/database/firebase.service';
+import { UserBill } from 'src/app/models/bill';
 import { ErrorMessage } from 'src/app/models/error-message';
 import { ErrorsComponent } from 'src/app/shared/components/errors/errors.component';
 
@@ -37,13 +40,26 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   private fb = inject(FormBuilder);
-  private auth: Auth = inject(Auth);
+
   private router = inject(Router);
   private authService = inject(AuthService);
+  private auth: Auth = this.authService.auth;
+  private firebaseService = inject(FirebaseService);
   private validatorFieldsService = inject(ValidatorFieldsService);
   private firebaseCodeErrorService = inject(FirebaseCodeErrorService);
 
+  user$ = authState(this.auth);
+
   private ngUnsubscribe = new Subject();
+
+  private user: UserBill = {
+    name: '',
+    lastname: '',
+    email: '',
+    phone: undefined,
+    address: '',
+    uid: '',
+  };
 
   typeMessage!: string;
   message!: Partial<ErrorMessage>;
@@ -101,6 +117,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   );
 
   ngOnInit(): void {
+    this.message = {
+      title: '',
+      code: '',
+      message: '',
+      suggestion: '',
+    };
     this.firebaseCodeErrorService.message$
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((message) => {
@@ -110,7 +132,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ngUnsubscribe.unsubscribe;
+    this.ngUnsubscribe.unsubscribe();
   }
   ngAfterViewInit(): void {}
   signUp() {
@@ -132,6 +154,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.isError = true;
       });
+    this.user = {
+      name: this.registerForm.value.name!,
+      lastname: this.registerForm.value.lastname!,
+      email: this.registerForm.value.email!,
+    };
+    this.user$.subscribe((user) => (this.user.uid = user?.uid));
+    console.log(this.user);
+
+    this.firebaseService.create(this.user);
+    this.firebaseService.setUser(this.user);
     this.registerForm.reset();
   }
 

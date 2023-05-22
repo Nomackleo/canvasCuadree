@@ -4,6 +4,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoverPassComponent } from './recover-pass/recover-pass.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
+
+const redirectToCanvas = () => redirectLoggedInTo(['canvas']);
 
 const routes: Routes = [
   {
@@ -12,10 +15,12 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+        ...canActivate(redirectToCanvas),
       },
       {
         path: 'register',
         component: RegisterComponent,
+        ...canActivate(redirectToCanvas),
       },
       {
         path: 'recover-password',

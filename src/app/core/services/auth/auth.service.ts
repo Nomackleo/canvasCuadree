@@ -58,21 +58,21 @@ export class AuthService {
 
   // Get into as guest
   loginGuest() {
-    signInAnonymously(this.auth);
+    return signInAnonymously(this.auth);
   }
 
   // Popup Google
   loginGooglePopup() {
-    signInWithRedirect(this.auth, this.providerGoogle);
+    return signInWithRedirect(this.auth, this.providerGoogle);
   }
 
   // login with Google
   loginWithGoogle() {
-    signInWithRedirect(this.auth, this.providerGoogle);
+    return signInWithRedirect(this.auth, this.providerGoogle);
   }
 
   loginWithFacebook() {
-    signInWithRedirect(this.auth, this.providerFacebook);
+    return signInWithRedirect(this.auth, this.providerFacebook);
   }
 
   // login with email and password
@@ -106,6 +106,9 @@ export class AuthService {
       });
   }
 
+  newUser() {
+    this.user$.pipe()
+  }
   async signUp(email: string, password: string, confirmPassword: string) {
     this.isLoading = true;
     return createUserWithEmailAndPassword(this.auth, email, password)
