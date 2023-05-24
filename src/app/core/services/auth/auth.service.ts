@@ -22,6 +22,9 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class AuthService {
+  recoverPassword(email: any) {
+    throw new Error('Method not implemented.');
+  }
   private router = inject(Router);
   private firebaseCodeErrorService = inject(FirebaseCodeErrorService);
   firestore = inject(Firestore);

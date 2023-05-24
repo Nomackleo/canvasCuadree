@@ -1,1 +1,84 @@
-<p>recover-pass works!</p>
+<div class="container animate__animated animate__fadeIn">
+  <div
+    class="row justify-content-center align-items-center d-flex"
+    style="height: 100vh"
+  >
+    <div
+      *ngIf="isMessage || isSuccess || isError"
+      class="animate__animated animate__bounceIn"
+    >
+      <app-errors
+        #erorsComponent
+        [message]="message"
+        [isMessage]="isMessage"
+        [isError]="isError"
+        [isSuccess]="isSuccess"
+      ></app-errors>
+    </div>
+    <div class="col-lg-6 col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <a [routerLink]="['/frame']">
+            <i class="fa-solid fa-chevron-left fa-xl ms-2 mt-4"></i>
+          </a>
+          <h2 class="card-title text-center mb-4">Recuperar contraseña</h2>
+          <form
+            [formGroup]="recoverPasswordForm"
+            (ngSubmit)="recoverPassword()"
+          >
+            <p>
+              Introduce tu dirección de correo electrónico y te enviaremos un
+              enlace para restablecer tu contraseña.
+            </p>
+            <!-- Email -->
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                id="email"
+                name="email"
+                formControlName="email"
+                placeholder="example@email.com"
+                required
+              />
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  recoverPasswordForm.controls['email'].invalid &&
+                  (recoverPasswordForm.controls['email'].dirty ||
+                    recoverPasswordForm.controls['email'].touched)
+                "
+              >
+                Introduce un correo electrónico válido
+              </span>
+              <span
+                class="form-text text-danger"
+                *ngIf="
+                  recoverPasswordForm.controls['email'].hasError('required')
+                "
+                >El correo electrónico es obligatorio</span
+              >
+              <span
+                *ngIf="recoverPasswordForm.controls['email'].hasError('email')"
+                >El correo electrónico no es válido</span
+              >
+            </div>
+            <button
+              type="submit"
+              class="button w-100 mb-3 active"
+              [disabled]="recoverPasswordForm.invalid || isLoading"
+              aria-label="Enviar correo electrónico de recuperación"
+            >
+              Ingresar con correo electrónico
+            </button>
+            <div *ngIf="isLoading" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </form>
+          <!-- Social Sigin -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

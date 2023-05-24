@@ -161,6 +161,26 @@ hr {
   transition: all 2s ease;
   background-color: #32264b;
 }
+
+@media screen and (max-width: 578px) {
+  .container-frame {
+    height: 420px;
+    min-height: 100%;
+    width: 100vw;
+  }
+  .box-container {
+    display: flex;
+    align-items: center;
+    transform: scale(0.6);
+    transition: 2s ease; /* Agrega esta línea para mantener la transición */
+
+  }
+
+  .box-container .alterpiece:hover {
+    transform: scale(0.6) perspective(1200px) rotateY(45deg); /* Ajusta la perspectiva y la rotación */
+  }
+  
+}
 .filestackImg {
   height: inherit;
   width: inherit;
@@ -574,7 +594,6 @@ input[type="range"]::-ms-fill-upper {
   background-color: #ccbaf2;
 }
 
-
 .list-group-item-primary {
   background-color: #ccbaf2;
 }
@@ -598,12 +617,11 @@ input[type="range"]::-ms-fill-upper {
   background-color: #9975e6;
   box-shadow: #1e172e;
 }
-.page-link.active, .active > .page-link {
+.page-link.active,
+.active > .page-link {
   background-color: #9975e6;
   border-color: #9975e6;
 }
-
-
 
 .invoice {
   transition: all 0.3s ease;
